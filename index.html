@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Matrix | Premium Web Development from Ghana to the World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #1a56db; --primary-dark: #1e429f; --secondary: #059669; --accent: #d97706;
+            --dark: #111827; --light: #f9fafb; --gray: #6b7280; --gray-light: #e5e7eb;
+            --ghana-red: #ce1126; --ghana-yellow: #fcd116; --ghana-green: #006b3f;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--dark); background-color: #ffffff; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+        h1 { font-size: 3.5rem; background: linear-gradient(90deg, var(--primary), var(--ghana-green)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        h2 { font-size: 2.5rem; color: var(--dark); position: relative; display: inline-block; margin-bottom: 2.5rem; }
+        h2:after { content: ''; position: absolute; left: 0; bottom: -10px; width: 60px; height: 4px; background: linear-gradient(90deg, var(--ghana-red), var(--ghana-yellow)); border-radius: 2px; }
+        .text-center h2:after { left: 50%; transform: translateX(-50%); }
+        p { margin-bottom: 1.5rem; color: var(--gray); font-size: 1.1rem; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 5rem 0; }
+        .btn {
+            display: inline-block; padding: 0.9rem 2rem; background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white; border-radius: 8px; text-decoration: none; font-weight: 600; border: none; cursor: pointer;
+            transition: var(--transition); box-shadow: var(--shadow); font-size: 1rem;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); background: linear-gradient(90deg, var(--primary-dark), var(--primary)); }
+        .btn-secondary { background: linear-gradient(90deg, var(--secondary), #047857); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .text-center { text-align: center; }
+        .section-header { margin-bottom: 3rem; }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 1rem 0; transition: var(--transition);
+        }
+        .header-scrolled { padding: 0.7rem 0; }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            display: flex; align-items: center; font-size: 1.8rem; font-weight: 800; color: var(--primary); text-decoration: none;
+        }
+        .logo span { color: var(--ghana-green); }
+        .logo-flag { display: inline-flex; margin-left: 0.5rem; }
+        .flag-stripe { width: 6px; height: 20px; margin-right: 2px; }
+        .red { background-color: var(--ghana-red); } .yellow { background-color: var(--ghana-yellow); } .green { background-color: var(--ghana-green); }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li { margin-left: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; transition: var(--transition); position: relative; padding: 0.5rem 0; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:after { content: ''; position: absolute; width: 0; height: 2px; background: var(--primary); left: 0; bottom: 0; transition: var(--transition); }
+        .nav-links a:hover:after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--dark); cursor: pointer; }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 10rem; padding-bottom: 5rem; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero:before {
+            content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%;
+            background: linear-gradient(90deg, rgba(26, 86, 219, 0.1), rgba(6, 107, 63, 0.1)); top: -150px; right: -150px;
+        }
+        .hero:after {
+            content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%;
+            background: linear-gradient(90deg, rgba(6, 107, 63, 0.1), rgba(26, 86, 219, 0.1)); bottom: -100px; left: -100px;
+        }
+        .hero-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch; position: relative; z-index: 1;
+        }
+        .hero-text h1 { font-size: 3.2rem; margin-bottom: 1.5rem; }
+        .hero-text p { font-size: 1.2rem; margin-bottom: 2rem; color: var(--dark); }
+        .hero-btns { display: flex; gap: 1rem; margin-bottom: 2rem; }
+        .hero-stats { display: flex; gap: 2rem; margin-top: 2rem; }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; }
+        .stat-label { font-size: 0.9rem; color: var(--gray); }
+        .hero-image { position: relative; display:flex; align-items:stretch; }
+        .hero-image img { width: 100%; border-radius: 12px; box-shadow: var(--shadow-lg); }
+        .time-badge {
+            position: absolute; top: -20px; right: -20px; background: white; padding: 1rem; border-radius: 10px;
+            box-shadow: var(--shadow); text-align: center; z-index: 2;
+        }
+        .time-badge .current-time { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .time-badge .location { font-size: 0.9rem; color: var(--gray); }
+
+        /* ===== TRUST INDICATORS ===== */
+        .trust-indicators { background-color: var(--light); padding: 3rem 0; }
+        .trust-logos { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 2rem; }
+        .trust-logo { font-size: 1.8rem; font-weight: 700; color: var(--gray); opacity: 0.7; transition: var(--transition); padding: 1rem; }
+        .trust-logo:hover { opacity: 1; color: var(--primary); }
+
+        /* ===== GHANA ADVANTAGE ===== */
+        .ghana-advantage-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem;
+        }
+        .advantage-card {
+            background: white; border-radius: 12px; padding: 2rem; box-shadow: var(--shadow); transition: var(--transition);
+            border-top: 4px solid transparent; text-align: center;
+        }
+        .advantage-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        .advantage-card:nth-child(1) { border-top-color: var(--ghana-green); }
+        .advantage-card:nth-child(2) { border-top-color: var(--ghana-yellow); }
+        .advantage-card:nth-child(3) { border-top-color: var(--ghana-red); }
+        .advantage-card:nth-child(4) { border-top-color: var(--primary); }
+        .advantage-icon { font-size: 3rem; margin-bottom: 1.5rem; color: var(--primary); }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio { background-color: var(--light); }
+        .portfolio-filters {
+            display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.6rem 1.5rem; background: white; border: 1px solid var(--gray-light); border-radius: 50px;
+            cursor: pointer; transition: var(--transition); font-weight: 500;
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem;
+        }
+        .portfolio-item {
+            background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition);
+        }
+        .portfolio-item:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        .portfolio-img {
+            height: 220px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;
+        }
+        .portfolio-content { padding: 1.5rem; }
+        .portfolio-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+        .portfolio-tag {
+            background: var(--gray-light); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem; color: var(--dark);
+        }
+        .portfolio-tag.international { background: #dbeafe; color: var(--primary); }
+        .portfolio-tag.ghana { background: #dcfce7; color: var(--secondary); }
+
+        /* ===== SERVICES ===== */
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;
+        }
+        .service-card {
+            background: white; border-radius: 12px; padding: 2.5rem 2rem; box-shadow: var(--shadow); transition: var(--transition);
+            text-align: center; border: 1px solid var(--gray-light); position: relative; overflow: hidden;
+        }
+        .service-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .service-card.popular:before {
+            content: 'MOST POPULAR'; position: absolute; top: 0; right: 0;
+            background: linear-gradient(90deg, var(--ghana-red), var(--ghana-yellow)); color: white;
+            padding: 0.5rem 1.5rem; font-size: 0.8rem; font-weight: 700; border-bottom-left-radius: 12px;
+        }
+        .service-icon { font-size: 3rem; color: var(--primary); margin-bottom: 1.5rem; }
+        .service-price { font-size: 2.5rem; font-weight: 800; color: var(--dark); margin: 1.5rem 0; }
+        .service-price span { font-size: 1rem; color: var(--gray); font-weight: normal; }
+        .service-features {
+            list-style: none; text-align: left; margin: 2rem 0;
+        }
+        .service-features li {
+            padding: 0.5rem 0; color: var(--gray); position: relative; padding-left: 1.8rem;
+        }
+        .service-features li:before { content: '✓'; position: absolute; left: 0; color: var(--secondary); font-weight: bold; }
+
+        /* ===== PROCESS ===== */
+        .process { background-color: var(--light); }
+        .process-timeline { max-width: 800px; margin: 4rem auto 0; position: relative; }
+        .process-timeline:before {
+            content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 4px;
+            background: linear-gradient(to bottom, var(--ghana-red), var(--ghana-yellow), var(--ghana-green)); transform: translateX(-50%);
+        }
+        .process-step { display: flex; align-items: center; margin-bottom: 3rem; position: relative; }
+        .process-step:nth-child(odd) { flex-direction: row; }
+        .process-step:nth-child(even) { flex-direction: row-reverse; }
+        .step-content { flex: 1; padding: 2rem; background: white; border-radius: 12px; box-shadow: var(--shadow); }
+        .step-number {
+            width: 60px; height: 60px; background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 2rem; z-index: 1; flex-shrink: 0;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-slider { max-width: 800px; margin: 3rem auto 0; position: relative; }
+        .testimonial-card { background: white; border-radius: 12px; padding: 2.5rem; box-shadow: var(--shadow); margin: 0 1rem; position: relative; }
+        .testimonial-card:before { content: '"'; position: absolute; top: 20px; left: 20px; font-size: 4rem; color: var(--primary); opacity: 0.2; font-family: serif; }
+        .testimonial-content { font-size: 1.1rem; font-style: italic; margin-bottom: 2rem; color: var(--dark); }
+        .testimonial-author { display: flex; align-items: center; }
+        .author-avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--gray-light); margin-right: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); font-weight: 700; }
+        .author-info h4 { margin-bottom: 0.3rem; }
+        .author-location { color: var(--gray); font-size: 0.9rem; display: flex; align-items: center; }
+        .author-location i { margin-right: 0.5rem; }
+        .testimonial-controls { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        .control-btn { width: 50px; height: 50px; border-radius: 50%; background: white; border: 1px solid var(--gray-light); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition); }
+        .control-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* ===== FAQ ===== */
+        .faq { background-color: var(--light); }
+        .faq-grid { max-width: 800px; margin: 3rem auto 0; }
+        .faq-item { background: white; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; box-shadow: var(--shadow); }
+        .faq-question { padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; color: var(--dark); }
+        .faq-question i { transition: var(--transition); }
+        .faq-answer { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: var(--transition); }
+        .faq-item.active .faq-answer { padding: 0 1.5rem 1.5rem; max-height: 500px; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+        /* ===== CONTACT ===== */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+        .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+        .contact-method { display: flex; align-items: flex-start; gap: 1rem; }
+        .contact-icon { width: 50px; height: 50px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .contact-form { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: var(--shadow); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--dark); }
+        .form-control {
+            width: 100%; padding: 0.9rem 1rem; border: 1px solid var(--gray-light); border-radius: 8px;
+            font-family: 'Inter', sans-serif; font-size: 1rem; transition: var(--transition);
+        }
+        .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1); }
+        .time-zone-widget { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); margin-top: 2rem; text-align: center; }
+        .time-display { font-size: 2rem; font-weight: 700; color: var(--primary); margin: 1rem 0; }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--dark); color: white; padding: 4rem 0 2rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+        .footer-logo { font-size: 1.8rem; font-weight: 800; color: white; margin-bottom: 1rem; display: inline-block; }
+        .footer-about p { color: #d1d5db; }
+        .footer-links h3, .footer-contact h3 { color: white; margin-bottom: 1.5rem; font-size: 1.3rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { color: #d1d5db; text-decoration: none; transition: var(--transition); }
+        .footer-links a:hover { color: white; padding-left: 5px; }
+        .footer-contact p { color: #d1d5db; margin-bottom: 1rem; display: flex; align-items: center; }
+        .footer-contact i { margin-right: 0.8rem; color: var(--primary); }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-link {
+            width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: var(--transition);
+        }
+        .social-link:hover { background: var(--primary); transform: translateY(-3px); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #9ca3af; font-size: 0.9rem; }
+        .ghana-flag-footer { display: inline-flex; margin: 0 0.5rem; }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; } h2 { font-size: 2.2rem; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-btns, .hero-stats { justify-content: center; }
+            .time-badge { right: 20px; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed; top: 70px; left: 0; width: 100%; background: white; flex-direction: column;
+                align-items: center; padding: 2rem; box-shadow: var(--shadow); transform: translateY(-100%); opacity: 0; visibility: hidden; transition: var(--transition);
+            }
+            .nav-links.active { transform: translateY(0); opacity: 1; visibility: visible; }
+            .nav-links li { margin: 1rem 0; }
+            .process-timeline:before { left: 30px; }
+            .process-step { flex-direction: row !important; }
+            .step-number { margin: 0 1rem 0 0; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 576px) {
+            .container { padding: 0 1.5rem; } section { padding: 3rem 0; }
+            h1 { font-size: 2.3rem; } h2 { font-size: 1.8rem; }
+            .hero-btns { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; text-align: center; }
+            .hero-stats { flex-wrap: wrap; }
+            .services-grid { grid-template-columns: 1fr; }
+        }
+        /* Utility to hide numbers visually but keep for screen readers */
+        .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; border: 0; padding: 0; margin: -1px; }
+
+        /* WhatsApp button style */
+        .whatsapp-btn {
+            display: inline-flex; align-items: center; gap: 0.6rem; background: linear-gradient(90deg,#25d366,#128c7e);
+            color: white; padding: 0.6rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600;
+        }
+        .whatsapp-btn:hover { opacity: 0.95; transform: translateY(-2px); }
+
+        /* Hero iframe container (separate from portfolio-img used elsewhere) */
+        .hero-iframe-container { flex: 1; min-height: 320px; border-radius: 12px; overflow: hidden; display: flex; }
+        .hero-iframe-container iframe { width: 100%; height: 100%; border: 0; display: block; flex: 1; }
+        .hero-iframe-placeholder { display: none; width: 100%; height: 100%; background: linear-gradient(90deg,#4f46e5,#7c3aed); color: white; display:flex; align-items:center; justify-content:center; }
+        .hero-iframe-placeholder a { color: white; background: rgba(0,0,0,0.12); padding: 0.6rem 1rem; border-radius:8px; text-decoration:none; font-weight:700; }
+        .canva-link { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.4px; text-transform: none; }
+        /* Portfolio image loading: hide img until successfully loaded, show fallback icon otherwise */
+        img.portfolio-image { display: none; width: 100%; height: 100%; object-fit: cover; }
+        .fallback-icon { display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.9); width:100%; height:100%; }
+        @media (max-width: 576px) {
+            .hero-iframe-container { min-height: 180px; }
+            .hero-iframe-container iframe { display: block; }
+            .hero-iframe-placeholder { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Secret API key removed for security. Use a server-side environment variable instead. -->
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <!-- Modern Geometric Logo (Concept 1) -->
+            
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" style="width: 40px; height: 40px; margin-right: 10px;">
+                        <path fill="#006B3F" d="M0,0 L200,0 L200,66.7 L0,66.7 Z"/>
+                        <path fill="#FCD116" d="M0,66.7 L200,66.7 L200,133.3 L0,133.3 Z"/>
+                        <path fill="#CE1126" d="M0,133.3 L200,133.3 L200,200 L0,200 Z"/>
+                        <path fill="#FFFFFF" d="M40,40 L80,40 L80,80 L40,80 Z" opacity="0.9"/>
+                        <path fill="#FFFFFF" d="M120,40 L160,40 L160,80 L120,80 Z" opacity="0.9"/>
+                        <path fill="#FFFFFF" d="M40,120 L80,120 L80,160 L40,160 Z" opacity="0.9"/>
+                        <path fill="#FFFFFF" d="M120,120 L160,120 L160,160 L120,160 Z" opacity="0.9"/>
+                        <line x1="80" y1="60" x2="120" y2="60" stroke="#1a56db" stroke-width="3"/>
+                        <line x1="100" y1="40" x2="100" y2="120" stroke="#1a56db" stroke-width="3"/>
+                        <line x1="80" y1="140" x2="120" y2="140" stroke="#1a56db" stroke-width="3"/>
+                        <line x1="100" y1="120" x2="100" y2="160" stroke="#1a56db" stroke-width="3"/>
+                        <path fill="none" stroke="#FFFFFF" stroke-width="4" d="M30,100 L50,80 L50,120 L30,100"/>
+                        <path fill="none" stroke="#FFFFFF" stroke-width="4" d="M170,100 L150,80 L150,120 L170,100"/>
+                        <polygon fill="#000000" points="100,83 104,93 115,95 107,102 109,113 100,108 91,113 93,102 85,95 96,93"/>
+                    </svg>
+                    <a>
+                        Web<span>Matrix</span>
+                    </a>   
+              
+                <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Why Ghana?</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#contact" class="btn">Get Free Quote</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Premium Web Development from Ghana to the World</h1>
+                    <p>Building high-performance websites for international clients with African efficiency and global standards. Western-quality development at Africa-competitive rates.</p>
+                    <div class="hero-btns">
+                        <a href="#portfolio" class="btn">View My Work</a>
+                        <a href="#contact" class="btn btn-outline">Get Free Consultation</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item"><span class="stat-number">50+</span><span class="stat-label">Projects Delivered</span></div>
+                        <div class="stat-item"><span class="stat-number">20+</span><span class="stat-label">International Clients</span></div>
+                        <div class="stat-item"><span class="stat-number">99%</span><span class="stat-label">Client Satisfaction</span></div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="time-badge"><div class="current-time" id="currentTime">Loading...</div><div class="location">Accra, Ghana (GMT)</div></div>
+                    <div class="portfolio-img hero-iframe-container" style="background: linear-gradient(90deg, #4f46e5, #7c3aed);">
+                        <iframe loading="lazy" title="Hero design" src="https://www.canva.com/design/DAG7mAay3MY/dn8dDypj8JH-BxZKP908JQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
+                        <div class="hero-iframe-placeholder">
+                            <a class="canva-link" href="https://www.canva.com/design/DAG7mAay3MY/dn8dDypj8JH-BxZKP908JQ/view?utm_content=DAG7mAay3MY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha2d86c6a8c" target="_blank" rel="noopener">WebMatrix</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Indicators -->
+    <section class="trust-indicators">
+        <div class="container">
+            <div class="trust-logos">
+                <div class="trust-logo">International Clients</div>
+                <div class="trust-logo">Amazon Associates</div>
+                <div class="trust-logo">Shopify Experts</div>
+                <div class="trust-logo">WordPress</div>
+                <div class="trust-logo">Google Developers</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ghana Advantage -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>The Ghana Advantage</h2>
+                <p>Why my location in Ghana is actually a competitive advantage for your project</p>
+            </div>
+            <div class="ghana-advantage-cards">
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <h3>Cost Efficiency</h3>
+                    <p>Same quality development at 40-60% lower costs compared to US/European developers. Get premium results without the premium price tag.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Time Zone Benefit</h3>
+                    <p>GMT timezone means I work while US/Europe sleeps. Wake up to overnight progress on your project every morning.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-language"></i></div>
+                    <h3>Fluent English</h3>
+                    <p>English is Ghana's official language. Fluent in technical and business English with clear, professional communication.</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>Reliable Connectivity</h3>
+                    <p>Dual fiber internet + mobile backup ensures 99.8% uptime. Modern infrastructure supports seamless remote collaboration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header text-center">
+                                <h2>Global Projects, Local Excellence</h2>
+                                <p>A selection of websites delivered to clients worldwide from my base in Ghana</p>
+                                <!-- Embedded Canva design -->
+                                <div style="position: relative; width: 100%; height: 0; padding-top: 107.6195%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
+                                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;" src="https://www.canva.com/design/DAG7mAay3MY/dn8dDypj8JH-BxZKP908JQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
+                                </div>
+                                <div style="margin-bottom:0.6em;font-size:0.9rem;color:var(--gray);">
+                                    <a class="canva-link" href="https://www.canva.com/design/DAG7mAay3MY/dn8dDypj8JH-BxZKP908JQ/view?utm_content=DAG7mAay3MY&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">WebMatrix</a> by Abraham Osah
+                                </div>
+            </div>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="international">International</button>
+                <button class="filter-btn" data-filter="ghana">Ghana Clients</button>
+                <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+                <button class="filter-btn" data-filter="wordpress">WordPress</button>
+            </div>
+            <div class="portfolio-grid">
+                <!-- Project 1: UK Fashion E-commerce Store -->
+                <div class="portfolio-item" data-category="international ecommerce">
+                    <!-- IMAGE FOR UK FASHION E-COMMERCE STORE -->
+                    <div class="portfolio-img" style="background: linear-gradient(45deg, #4f46e5, #7c3aed);">
+                        <!-- Image path: projects/international/{filename}
+                             Upload your image to the folder and name it exactly as the project (slugified) with .jpg/.png -->
+                        <img class="portfolio-image" src="projects/international/uk-fashion-ecommerce-store.jpg" alt="UK Fashion E-commerce Store" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+                        <i class="fas fa-shopping-cart fallback-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag international">International Client</span>
+                            <span class="portfolio-tag">E-commerce</span>
+                            <span class="portfolio-tag">Shopify</span>
+                        </div>
+                        <h3>UK Fashion E-commerce Store</h3>
+                        <p>Complete Shopify store for a UK-based fashion brand with custom theme, payment integration, and inventory management.</p>
+                        <p><strong>Client Location:</strong> London, UK</p>
+                        <p><strong>Time Zone Coordination:</strong> 5-hour difference managed seamlessly</p>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Ghana Organic Farm Website -->
+                <div class="portfolio-item" data-category="ghana wordpress">
+                    <!-- IMAGE FOR GHANA ORGANIC FARM WEBSITE -->
+                    <div class="portfolio-img" style="background: linear-gradient(45deg, #059669, #10b981);">
+                        <!-- Image path: projects/ghana/{filename} -->
+                        <img class="portfolio-image" src="projects/ghana/ghana-organic-farm.jpg" alt="Ghana Organic Farm Website" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+                        <i class="fas fa-leaf fallback-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag ghana">Ghana Client</span>
+                            <span class="portfolio-tag">WordPress</span>
+                            <span class="portfolio-tag">Mobile-First</span>
+                        </div>
+                        <h3>Ghana Organic Farm Website</h3>
+                        <p>Responsive WordPress site for a local organic farm with e-commerce functionality for local and international sales.</p>
+                        <p><strong>Special Features:</strong> Mobile Money integration, bilingual support</p>
+                        <p><strong>Local Market Understanding:</strong> Optimized for Ghanaian audience</p>
+                    </div>
+                </div>
+                
+                <!-- Project 3: US Travel Blogger Website -->
+                <div class="portfolio-item" data-category="international wordpress">
+                    <!-- IMAGE FOR US TRAVEL BLOGGER WEBSITE -->
+                    <div class="portfolio-img" style="background: linear-gradient(45deg, #dc2626, #ea580c);">
+                        <!-- Image path: projects/international/{filename} -->
+                        <img class="portfolio-image" src="projects/international/us-travel-blogger-website.jpg" alt="US Travel Blogger Website" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'">
+                        <i class="fas fa-blog fallback-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag international">International Client</span>
+                            <span class="portfolio-tag">WordPress</span>
+                            <span class="portfolio-tag">Custom Theme</span>
+                        </div>
+                        <h3>US Travel Blogger Website</h3>
+                        <p>Custom WordPress theme and optimization for a travel blogger with focus on speed, SEO, and visual storytelling.</p>
+                        <p><strong>Client Location:</strong> California, USA</p>
+                        <p><strong>Result:</strong> 3x faster load times, 40% increase in traffic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>My Services</h2>
+                <p>Comprehensive web development solutions with Ghana-based efficiency</p>
+            </div>
+            <div class="services-grid">
+                <!-- Service 1: Website Development -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Website Development</h3>
+                    <p>Custom websites from simple landing pages to complex web applications</p>
+                    <div class="service-price" data-usd="800">$800<span>+</span></div>
+                    <ul class="service-features">
+                        <li>Responsive Design (Mobile First)</li><li>Custom WordPress Theme</li><li>SEO Optimization</li>
+                        <li>Contact Form & Integration</li><li>3 Revisions Included</li><li>Time Zone Optimized Communication</li>
+                    </ul>
+                    <!-- PAYSTACK BUY LINK for Website Development -->
+                    <a href="https://paystack.com/buy/website-development-dmtwxm" class="btn" target="_blank" rel="noopener noreferrer">Get Quote & Pay</a>
+                </div>
+                
+                <!-- Service 2: E-commerce Store -->
+                <div class="service-card popular">
+                    <div class="service-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>E-commerce Store</h3>
+                    <p>Complete online stores with payment processing and inventory management</p>
+                    <div class="service-price" data-usd="1500">$1,500<span>+</span></div>
+                    <ul class="service-features">
+                        <li>Shopify or WooCommerce Setup</li><li>Payment Gateway Integration</li><li>Product Catalog Setup</li>
+                        <li>Mobile-Responsive Design</li><li>Security & SSL Certificate</li>
+                        <li>Ghana-Specific Payment Options (Mobile Money)</li><li>International Shipping Setup</li>
+                    </ul>
+                    <!-- PAYSTACK BUY LINK for E-commerce Store -->
+                    <a href="https://paystack.com/buy/e-commerce-store-lughat" class="btn" target="_blank" rel="noopener noreferrer">Get Quote & Pay</a>
+                </div>
+                
+                <!-- Service 3: Website Maintenance -->
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Website Maintenance</h3>
+                    <p>Ongoing support and maintenance for existing websites</p>
+                    <div class="service-price" data-usd="150">$150<span>/month</span></div>
+                    <ul class="service-features">
+                        <li>Weekly Backups</li><li>Security Updates & Monitoring</li><li>Performance Optimization</li>
+                        <li>Content Updates (up to 5 hours/month)</li><li>24/7 Uptime Monitoring</li>
+                        <li>Emergency Support</li><li>Overnight Updates (GMT Advantage)</li>
+                    </ul>
+                    <!-- PAYSTACK subscription link for Website Maintenance -->
+                    <a href="https://paystack.shop/pay/wks-atubs2" class="btn" target="_blank" rel="noopener noreferrer">Subscribe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>My Work Process</h2>
+                <p>How we'll work together across time zones and distances</p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Discovery & Planning</h3>
+                        <p><strong>Your Evening, My Afternoon</strong> - We start with a video call to understand your project goals, target audience, and requirements. I'll provide a detailed proposal with timeline and cost.</p>
+                        <p><strong>Tools:</strong> Zoom, Google Meet, Calendly scheduling</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Design & Development</h3>
+                        <p><strong>I Code While You Sleep</strong> - During your nighttime (my workday), I'll build your website with daily progress updates. You'll wake up to new developments each morning.</p>
+                        <p><strong>Communication:</strong> Daily updates via email/Slack, GitHub commits visible</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Review & Feedback</h3>
+                        <p><strong>Your Morning, My Afternoon</strong> - I'll present the work for your review. Your feedback will be incorporated in real-time during our overlapping hours.</p>
+                        <p><strong>Process:</strong> Staging site for review, collaborative feedback tools</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Launch & Support</h3>
+                        <p><strong>Round-the-Clock Monitoring</strong> - After launch, I provide support and maintenance. My GMT location means I can address issues during off-peak hours for minimal disruption.</p>
+                        <p><strong>Support:</strong> 30-day post-launch support, optional maintenance plans</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>What Clients Say</h2>
+                <p>Feedback from clients around the world who've worked with me remotely from Ghana</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Working with Web Matrix was seamless despite the distance. The time zone difference actually worked in our favor - we'd send feedback at the end of our day and wake up to completed work. The quality exceeded our expectations and the cost was significantly lower than local developers."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JS</div>
+                        <div class="author-info">
+                            <h4>James Smith</h4>
+                            <div class="author-location"><i class="fas fa-map-marker-alt"></i> London, UK (E-commerce Store)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-controls">
+                <button class="control-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="control-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Frequently Asked Questions</h2>
+                <p>Addressing common concerns about working with a developer in Ghana</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question"><span>Is there a language barrier?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer"><p>Not at all. English is Ghana's official language, and I'm fluent in both technical and business English. All communication, documentation, and code comments are in clear, professional English.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>How do time zones work?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer"><p>I'm in Ghana (GMT). For US clients, I'm typically 4-8 hours ahead, which means I can make progress overnight. For UK/European clients, we're in the same or similar time zones. I adjust my schedule to ensure overlap for meetings and real-time communication.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>What about internet reliability in Ghana?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer"><p>I have dual fiber optic internet connections with automatic failover to mobile 4G/5G backup. My uptime monitoring shows 99.8% availability. Major cities in Ghana have reliable, high-speed internet comparable to many Western countries.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>How do payments work?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer"><p>I use secure international payment platforms: PayPal, Wise (TransferWise), and direct bank transfers. We agree on milestones with clear deliverables. I've never had payment issues with international clients.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span>Can you handle Ghana-specific requirements?</span><i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer"><p>Absolutely! This is one of my unique advantages. I can integrate Mobile Money payments, optimize for local hosting, implement Ghana-specific SEO, and ensure cultural appropriateness for Ghanaian audiences.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Let's Work Together</h2>
+                <p>Get in touch for a free consultation. I'll adjust to your timezone.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-method">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h4>Phone / WhatsApp</h4>
+                            <p>
+                                <a href="tel:+18458662611" class="visually-hidden">+1 (845) 866-2611</a>
+                                <a href="https://wa.me/18458662611" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </p>
+                            <p style="margin-top:0.4rem;color:var(--gray);">Available for calls and WhatsApp messages</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>webmatrix90s@protonmail.com</p>
+                            <p>Typically respond within 2-4 hours during business days</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Based in Accra, Ghana</p>
+                            <p>Serving clients worldwide</p>
+                            <p>Time Zone: GMT (Greenwich Mean Time)</p>
+                        </div>
+                    </div>
+                    <div class="time-zone-widget">
+                        <h4>Current Time in Ghana</h4>
+                        <div class="time-display" id="ghanaTime">Loading...</div>
+                        <p>I'm typically available 9:00 AM - 6:00 PM GMT</p>
+                    </div>
+                </div>
+                
+                <!-- Contact Form with Formspree Endpoint -->
+                <div class="contact-form">
+                    <h3>Send a Message</h3>
+                    <form id="contactForm" action="https://formspree.io/f/xzznwovr" method="POST">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Your Location</label>
+                            <select id="location" name="location" class="form-control">
+                                <option value="">Select your country</option>
+                                <option value="international">International Client</option>
+                                <option value="usa">United States</option><option value="uk">United Kingdom</option>
+                                <option value="europe">Other Europe</option><option value="ghana">Ghana</option>
+                                <option value="africa">Other Africa</option><option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service" name="service" class="form-control">
+                                <option value="">Select a service</option>
+                                <option value="website">Website Development</option>
+                                <option value="ecommerce">E-commerce Store</option>
+                                <option value="maintenance">Website Maintenance</option>
+                                <option value="other">Other/Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Project Details *</label>
+                            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Tell me about your project, timeline, and any specific requirements..." required></textarea>
+                        </div>
+                        <!-- Formspree hidden fields -->
+                        <input type="hidden" name="_subject" value="New Contact Form Submission from Web Matrix">
+                        <input type="text" name="_gotcha" style="display:none">
+                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">WebMatrix</a>
+                    <p>Premium web development services from Ghana to the world. Combining global technical standards with African efficiency and competitive pricing.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/18458662611" class="social-link whatsapp-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li><li><a href="#about">Why Ghana?</a></li><li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+18458662611" class="visually-hidden">+1 (845) 866-2611</a></p>
+                    <p><i class="fas fa-envelope"></i> webmatrix90s@protonmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
+                    <p><i class="fas fa-clock"></i> GMT Time Zone</p>
+                    <p><i class="fas fa-globe"></i> Serving Clients Worldwide</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Web Matrix. All rights reserved. | Built with pride in <span class="ghana-flag-footer">🇬🇭</span> Ghana</p>
+                <p>Web Developer Serving Global Clients from Accra, Ghana</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            header.classList.toggle('header-scrolled', window.scrollY > 100);
+        });
+        
+        // Current Time Display
+        function updateTime() {
+            const now = new Date();
+            const ghanaTime = now.toLocaleTimeString('en-US', { 
+                timeZone: 'Africa/Accra', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = ghanaTime;
+            document.getElementById('ghanaTime').textContent = ghanaTime;
+        }
+        updateTime(); setInterval(updateTime, 1000);
+        
+        // Portfolio Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filterValue = btn.getAttribute('data-filter');
+                portfolioItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    if (filterValue === 'all' || category.includes(filterValue)) {
+                        item.style.display = 'block';
+                        setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => { item.style.display = 'none'; }, 300);
+                    }
+                });
+            });
+        });
+        
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Testimonial Slider
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentTestimonial = 0;
+        function showTestimonial(index) {
+            testimonialCards.forEach((card, i) => {
+                card.style.display = i === index ? 'block' : 'none';
+            });
+        }
+        showTestimonial(0);
+        prevBtn.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+            showTestimonial(currentTestimonial);
+        });
+        nextBtn.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+            showTestimonial(currentTestimonial);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Paystack integration
+        // NOTE: Do NOT use secret keys in client-side code. Set your Paystack public key here.
+        window.PAYSTACK_PUBLIC_KEY = 'pk_live_f3e066922b55100ef8f04dbd8c7e50c5b813858d';
+
+        function openPaystackCheckout(options) {
+            const pubKey = window.PAYSTACK_PUBLIC_KEY;
+            if (!pubKey) {
+                alert('Paystack public key not configured. Please set window.PAYSTACK_PUBLIC_KEY in the script.');
+                return;
+            }
+            const handler = PaystackPop.setup({
+                key: pubKey,
+                email: options.email || 'customer@example.com',
+                amount: options.amount || 0,
+                currency: options.currency || 'GHS',
+                ref: options.reference || 'ref_' + Math.floor((Math.random() * 1000000000) + 1),
+                metadata: options.metadata || {},
+                onClose: function() {
+                    console.log('Payment window closed');
+                },
+                callback: function(response) {
+                    // response.reference contains the transaction reference
+                    alert('Payment complete. Reference: ' + response.reference);
+                    console.log('Paystack callback', response);
+                }
+            });
+            handler.openIframe();
+        }
+
+        // Prices are stored in the `data-usd` attribute but should be treated as GHS amounts (no conversion).
+        // Amounts are converted to pesewas for Paystack (1 GHS = 100 pesewas).
+        const EXCHANGE = { rate: 1 };
+
+        function updatePricesToGHS() {
+            document.querySelectorAll('.service-price').forEach(el => {
+                const usd = parseFloat(el.getAttribute('data-usd'));
+                if (!isNaN(usd)) {
+                    const ghs = usd * EXCHANGE.rate;
+                    const span = el.querySelector('span');
+                    const suffix = span ? span.outerHTML : '';
+                    el.innerHTML = `GHS ${ghs.toFixed(2)}` + suffix;
+                }
+            });
+            document.querySelectorAll('.pay-btn').forEach(btn => {
+                const usd = parseFloat(btn.getAttribute('data-usd'));
+                if (!isNaN(usd)) {
+                    const ghs = usd * EXCHANGE.rate;
+                    const pesewas = Math.round(ghs * 100);
+                    btn.setAttribute('data-amount', String(pesewas));
+                }
+            });
+        }
+
+        // Apply prices as GHS without external conversion
+        updatePricesToGHS();
+
+        // Wire service pay buttons
+        document.querySelectorAll('.pay-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const amount = parseInt(btn.getAttribute('data-amount'), 10) || 0;
+                const service = btn.getAttribute('data-service') || 'service';
+                // Amount should be in the smallest currency unit (e.g., pesewas for GHS).
+                openPaystackCheckout({ amount: amount, currency: 'GHS', metadata: { service } });
+            });
+        });
+    </script>
+        <script>
+            // Try multiple filename extensions for portfolio images (.jpg -> .png -> .webp -> .jpeg)
+            (function(){
+                const exts = ['jpg','png','webp','jpeg'];
+                document.querySelectorAll('img.portfolio-image').forEach(img => {
+                    const original = img.getAttribute('src') || '';
+                    if (!original) return;
+                    // derive base (remove extension and query)
+                    let base = original.split('?')[0].replace(/\.[^.\/]+$/, '');
+
+                    let idx = 0;
+                    const tryNext = () => {
+                        if (idx >= exts.length) {
+                            // no image found -> hide img and show fallback
+                            img.style.display = 'none';
+                            const fb = img.parentElement.querySelector('.fallback-icon');
+                            if (fb) fb.style.display = 'flex';
+                            return;
+                        }
+                        const candidate = base + '.' + exts[idx++];
+                        img.onload = function() {
+                            img.style.display = 'block';
+                            const fb = img.parentElement.querySelector('.fallback-icon');
+                            if (fb) fb.style.display = 'none';
+                        };
+                        img.onerror = function() { tryNext(); };
+                        img.src = candidate;
+                    };
+                    // start attempts
+                    tryNext();
+                });
+            })();
+        </script>
+</body>
+</html>
